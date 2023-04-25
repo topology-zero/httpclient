@@ -133,3 +133,14 @@ if err != nil {
 }
 log.Println(string(resp))
 ```
+
+### 自定义错误日志处理
+
+```go
+request := httpclient.NewHttpRequest(httpclient.DELETE, "https://foo.com/10086", httpclient.WithLog(logrus.StandardLogger()))
+resp, err := request.DoHttpRequest()
+if err != nil {
+    panic(err)
+}
+log.Println(string(resp))
+```
