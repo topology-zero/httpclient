@@ -132,6 +132,13 @@ func WithLog(logger Logger) HTTPOption {
 	}
 }
 
+// WithQuery 设置 GET 请求参数
+func WithQuery(query map[string]string) HTTPOption {
+	return func(r *Request) {
+		r.query = query
+	}
+}
+
 // WithTimeout 设置请求超时
 func WithTimeout(d time.Duration) HTTPOption {
 	return func(r *Request) {
