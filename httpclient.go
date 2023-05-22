@@ -125,6 +125,18 @@ func (r *Request) GetResponse() *http.Response {
 	return r.response
 }
 
+// GetClient 获取原始 http 客户端
+func (r *Request) GetClient() *http.Client {
+	return r.client
+}
+
+// WithClient 设置 http 客户端
+func (r *Request) WithClient(c *http.Client) HTTPOption {
+	return func(r *Request) {
+		r.client = c
+	}
+}
+
 // WithLog 设置日志输出
 func WithLog(logger Logger) HTTPOption {
 	return func(r *Request) {
