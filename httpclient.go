@@ -131,7 +131,7 @@ func (r *Request) GetClient() *http.Client {
 }
 
 // WithClient 设置 http 客户端
-func (r *Request) WithClient(c *http.Client) HTTPOption {
+func WithClient(c *http.Client) HTTPOption {
 	return func(r *Request) {
 		r.client = c
 	}
