@@ -165,6 +165,13 @@ func WithRetry(retryTime int) HTTPOption {
 	}
 }
 
+// WithRawBody 设置自定义请求结构
+func WithRawBody(body io.Reader) HTTPOption {
+	return func(r *Request) {
+		r.body = body
+	}
+}
+
 // WithJson 设置请求结构为 JSON
 func WithJson(body any) HTTPOption {
 	return func(r *Request) {
