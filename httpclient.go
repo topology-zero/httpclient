@@ -2,6 +2,7 @@ package httpclient
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -219,6 +220,12 @@ func WithMultipartFrom(file *UploadFile, fromData map[string]string) HTTPOption 
 	return func(r *Request) {
 		r.body = body
 		r.header["Content-Type"] = newWriter.FormDataContentType()
+	}
+}
+
+func WithOutTlsVerify() HTTPOption {
+	return func(r *Request) {
+		r.client.Transport = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
 	}
 }
 
