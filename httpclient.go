@@ -198,14 +198,16 @@ func WithHeader(key, val string) HTTPOption {
 }
 
 // WithMultipartFrom 设置请求结构为 form-data
-func WithMultipartFrom(file *UploadFile, fromData map[string]string) HTTPOption {
+func WithMultipartFrom(fromData map[string]string, files ...*UploadFile) HTTPOption {
 	body := &bytes.Buffer{}
 	newWriter := multipart.NewWriter(body)
 
 	// 文件处理
-	if file != nil {
-		formFile, _ := newWriter.CreateFormFile(file.Field, file.FileName)
-		_, _ = io.Copy(formFile, file.File)
+	if files != nil {
+		for _, file := range files {
+			formFile, _ := newWriter.CreateFormFile(file.Field, file.FileName)
+			_, _ = io.Copy(formFile, file.File)
+		}
 	}
 
 	// 普通字段处理
