@@ -88,10 +88,10 @@ func (r *Request) DoHttpRequest() ([]byte, error) {
 		}
 
 		response, err := r.client.Do(request)
+		r.response = response
 		if err != nil {
 			return nil, err
 		}
-		r.response = response
 
 		if response.StatusCode != http.StatusOK {
 			return nil, Not200
