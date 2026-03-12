@@ -23,10 +23,6 @@ const (
 	DELETE = method("DELETE")
 )
 
-var (
-	Not200 = errors.New("status code != 200")
-)
-
 type Request struct {
 	method string
 	url    string
@@ -93,17 +89,17 @@ func (r *Request) DoHttpRequest() ([]byte, error) {
 			return nil, err
 		}
 
-		if response.StatusCode != http.StatusOK {
-			return nil, Not200
-		}
-
 		resp, err := io.ReadAll(response.Body)
 		defer response.Body.Close()
 		if err != nil {
 			return nil, err
 		}
 
-		return resp, nil
+		if response.StatusCode >= 200 && response.StatusCode < 300 {
+			return resp, nil
+		}
+
+		return resp, errors.New(fmt.Sprintf("status code = %d", response.StatusCode))
 	}
 
 	for {

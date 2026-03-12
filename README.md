@@ -5,7 +5,7 @@
 ### 最新版本
 
 ```
-go get github.com/topology-zero/httpclient@v1.0.4
+go get github.com/topology-zero/httpclient@v1.0.8
 ```
 
 ### 示例使用
